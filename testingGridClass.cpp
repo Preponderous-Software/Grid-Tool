@@ -7,8 +7,8 @@
 
 using namespace std;
 
-const int COLUMNS = 10;
-const int ROWS = 10;
+const int COLUMNS = 20;
+const int ROWS = 20;
 
 const int SCREEN_WIDTH = 500; // must be multiples of COLUMNS
 const int SCREEN_HEIGHT = 500; // must be multiples of ROWS

@@ -14,10 +14,12 @@ class GridSlot {
 	int ypos;
 	int width;
 	int height;
-	SDL_Rect collider;
 	SDL_Texture* currentTexture;
 	int red;
+	bool solidFlag;
+	bool buttonFlag;
   public:
+	SDL_Rect collider;
 	GridSlot();
 	void init(int x, int y, int w, int h);
 	void setRenderer(SDL_Renderer* rendererToSet);
@@ -25,6 +27,8 @@ class GridSlot {
 	void drawRectangle(int x, int y, int w, int h);
 	void render();
 	void makeRed();
+	void setSolidFlag(bool setter);
+	void setButtonFlag(bool setter);
 };
 
 class GridClass {
@@ -41,6 +45,8 @@ class GridClass {
 	
 	std::vector<GridSlot> theGrid;
   public:
+	std::vector<GridSlot> solidSlots;
+	std::vector<GridSlot> buttonSlots;
 	GridClass();
 	void init(int c, int r, int sW, int sH);
 	void setRenderer(SDL_Renderer* rendererToSet);

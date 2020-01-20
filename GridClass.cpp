@@ -7,7 +7,9 @@ GridSlot::GridSlot() {
 	height = 0;
 	collider = {xpos, ypos, width, height};
 	currentTexture = NULL;
-	int red;
+	red = 0;
+	solidFlag = false;
+	buttonFlag = false;
 }
 
 void GridSlot::init(int x, int y, int w, int h) {
@@ -51,6 +53,14 @@ void GridSlot::render() {
 
 void GridSlot::makeRed() {
 	red = 200;
+}
+
+void GridSlot::setSolidFlag(bool setter) {
+	solidFlag = setter;
+}
+
+void GridSlot::setButtonFlag(bool setter) {
+	buttonFlag = setter;
 }
 
 GridClass::GridClass() {
