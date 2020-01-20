@@ -7,6 +7,7 @@ GridSlot::GridSlot() {
 	height = 0;
 	collider = {xpos, ypos, width, height};
 	currentTexture = NULL;
+	int red;
 }
 
 void GridSlot::init(int x, int y, int w, int h) {
@@ -15,6 +16,7 @@ void GridSlot::init(int x, int y, int w, int h) {
 	width = w;
 	height = h;
 	collider = {xpos, ypos, width, height};
+	red = 0;
 }
 
 void GridSlot::setRenderer(SDL_Renderer* rendererToSet) {
@@ -26,18 +28,29 @@ void GridSlot::setTexture(SDL_Texture* textureToSet) {
 }
 
 void GridSlot::drawRectangle(int x, int y, int w, int h) {
-	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
+	SDL_SetRenderDrawColor(renderer, red, 0x00, 0x00, 0xFF);
 	SDL_Rect drawRect = {x, y, w, h};
-	SDL_RenderDrawRect(renderer, &drawRect);
+	if (red > 0) {
+		SDL_RenderFillRect(renderer, &drawRect);
+	}
+	else {
+		SDL_RenderDrawRect(renderer, &drawRect);
+	}
+	
 }
 
 void GridSlot::render() {
 	if (currentTexture != NULL) {
-		
+		SDL_Rect dest = {xpos, ypos, width, height};
+		SDL_RenderCopy(renderer, currentTexture, NULL, &dest);
 	}
 	else {
 		drawRectangle(xpos, ypos, width, height);
 	}
+}
+
+void GridSlot::makeRed() {
+	red = 200;
 }
 
 GridClass::GridClass() {
@@ -83,4 +96,9 @@ void GridClass::drawGrid() {
 	for (size_t i = 0; i < theGrid.size(); i++) {
 		theGrid[i].render();
 	}
+}
+
+GridSlot& GridClass::getGridSlot(int x, int y) {
+	GridSlot& temp = theGrid[x + (y * columns)];
+	return temp;
 }

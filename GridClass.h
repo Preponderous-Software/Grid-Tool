@@ -16,6 +16,7 @@ class GridSlot {
 	int height;
 	SDL_Rect collider;
 	SDL_Texture* currentTexture;
+	int red;
   public:
 	GridSlot();
 	void init(int x, int y, int w, int h);
@@ -23,6 +24,7 @@ class GridSlot {
 	void setTexture(SDL_Texture* textureToSet);
 	void drawRectangle(int x, int y, int w, int h);
 	void render();
+	void makeRed();
 };
 
 class GridClass {
@@ -44,5 +46,6 @@ class GridClass {
 	void setRenderer(SDL_Renderer* rendererToSet);
 	void createGrid();
 	void drawGrid();
+	GridSlot& getGridSlot(int x, int y);
 };
 #endif

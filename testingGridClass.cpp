@@ -7,23 +7,23 @@
 
 using namespace std;
 
-const int COLUMNS = 20;
+const int COLUMNS = 10;
 const int ROWS = 10;
 
-const int SCREEN_WIDTH = 1000; // must be multiples of COLUMNS
+const int SCREEN_WIDTH = 500; // must be multiples of COLUMNS
 const int SCREEN_HEIGHT = 500; // must be multiples of ROWS
-
-const int GRID_SLOT_HEIGHT = SCREEN_HEIGHT/ROWS;
-const int GRID_SLOT_WIDTH = SCREEN_WIDTH/COLUMNS;
-
 
 SDL_Window* gWindow = NULL;
 
 SDL_Renderer* gRenderer = NULL;
 
+SDL_Texture* grassTexture = NULL;
+
 GridClass theGrid;
 
 void init();
+
+void loadMedia();
 
 void cleanUp();
 
@@ -44,15 +44,31 @@ void init() {
 	IMG_Init(imgFlags);
 }
 
+void loadMedia() {
+	SDL_Surface* tempSurface;
+	tempSurface = IMG_Load("grassTexture.png");
+	grassTexture = SDL_CreateTextureFromSurface(gRenderer, tempSurface);
+	SDL_FreeSurface(tempSurface);
+}
+
 void cleanUp() {
+	SDL_DestroyTexture(grassTexture);
 	SDL_DestroyRenderer(gRenderer);
 	SDL_DestroyWindow(gWindow);
 	IMG_Quit();
 	SDL_Quit();
 }
 
+void setRow(int row, SDL_Texture* textureToSet) {
+	// set row to be grass
+	for (size_t i = 0; i < COLUMNS; i++) {
+		theGrid.getGridSlot(i, row).setTexture(grassTexture);
+	}
+}
+
 int main(int argc, char* args[]) {
 	init();
+	loadMedia();
 	theGrid.createGrid();
 	SDL_Event e;
 	bool running = true;
@@ -64,8 +80,10 @@ int main(int argc, char* args[]) {
 		}
 		SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(gRenderer);
-		
-		theGrid.drawGrid();
+
+//		setRow(9, grassTexture);
+
+		theGrid.drawGrid();		
 		
 		SDL_RenderPresent(gRenderer);
 	}
