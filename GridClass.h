@@ -15,9 +15,9 @@ class GridSlot {
 	int width;
 	int height;
 	SDL_Texture* currentTexture;
-	int red;
 	bool solidFlag;
 	bool buttonFlag;
+	bool filled;
   public:
 	SDL_Rect collider;
 	GridSlot();
@@ -26,7 +26,8 @@ class GridSlot {
 	void setTexture(SDL_Texture* textureToSet);
 	void drawRectangle(int x, int y, int w, int h);
 	void render();
-	void makeRed();
+	void fillBlack();
+	void clear();
 	void setSolidFlag(bool setter);
 	void setButtonFlag(bool setter);
 };

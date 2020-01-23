@@ -7,9 +7,9 @@ GridSlot::GridSlot() {
 	height = 0;
 	collider = {xpos, ypos, width, height};
 	currentTexture = NULL;
-	red = 0;
 	solidFlag = false;
 	buttonFlag = false;
+	filled = false;
 }
 
 void GridSlot::init(int x, int y, int w, int h) {
@@ -18,7 +18,6 @@ void GridSlot::init(int x, int y, int w, int h) {
 	width = w;
 	height = h;
 	collider = {xpos, ypos, width, height};
-	red = 0;
 }
 
 void GridSlot::setRenderer(SDL_Renderer* rendererToSet) {
@@ -30,9 +29,9 @@ void GridSlot::setTexture(SDL_Texture* textureToSet) {
 }
 
 void GridSlot::drawRectangle(int x, int y, int w, int h) {
-	SDL_SetRenderDrawColor(renderer, red, 0x00, 0x00, 0xFF);
+	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 	SDL_Rect drawRect = {x, y, w, h};
-	if (red > 0) {
+	if (filled == true) {
 		SDL_RenderFillRect(renderer, &drawRect);
 	}
 	else {
@@ -51,8 +50,12 @@ void GridSlot::render() {
 	}
 }
 
-void GridSlot::makeRed() {
-	red = 200;
+void GridSlot::fillBlack() {
+	filled = true;
+}
+
+void GridSlot::clear() {
+	filled = false;
 }
 
 void GridSlot::setSolidFlag(bool setter) {
