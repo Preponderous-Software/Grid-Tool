@@ -115,3 +115,11 @@ GridSlot& GridClass::getGridSlot(int x, int y) {
 	GridSlot& temp = theGrid[x + (y * columns)];
 	return temp;
 }
+
+int GridClass::getColumns() {
+    return columns;
+}
+
+int GridClass::getRows() {
+    return rows;
+}

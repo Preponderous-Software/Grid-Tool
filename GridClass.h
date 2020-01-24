@@ -54,5 +54,7 @@ class GridClass {
 	void createGrid();
 	void drawGrid();
 	GridSlot& getGridSlot(int x, int y);
+    int getColumns();
+    int getRows();
 };
 #endif
